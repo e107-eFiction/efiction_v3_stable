@@ -1,5 +1,4 @@
 <?php
-header('Content-type: text/html; charset=UTF-8');
 // ----------------------------------------------------------------------
 // Copyright (c) 2007 by Tammy Keefer
 // Based on eFiction 1.1
@@ -38,6 +37,9 @@ if(get_magic_quotes_gpc()){
 	}
 }
 
+// Defines the character set for your language/location
+define ("_CHARSET", "UTF-8");
+
 // Prevent possible XSS attacks via $_GET.
 foreach ($_GET as $v) {
 	if(preg_match('@<script[^>]*?>.*?</script>@si', $v) ||
@@ -60,11 +62,12 @@ if(ini_get('register_globals')) {
 	foreach($arrayList as $k => $v) {
 		unset($GLOBALS[$k]);
 	}
-}
-
+}                   
+ 
 Header('Cache-Control: private, no-cache, must-revalidate, max_age=0, post-check=0, pre-check=0');
 header ("Pragma: no-cache"); 
 header ("Expires: 0"); 
+header("Content-Type: text/html; charset="._CHARSET);
 
 // Locate config.php and set the basedir path
 $folder_level = "";
@@ -216,9 +219,20 @@ if($current == "viewuser" && isNumber($uid)) {
 echo _DOCTYPE."<html><head>";
 if(!isset($titleinfo)) $titleinfo = "$sitename :: $slogan";
 if(isset($metaDesc)) echo "<meta name='description' content='$metaDesc'>";
-echo "<title>$titleinfo</title>
-<link rel=\"shortcut icon\" type=\"image/ico\" href=\"skins/Snow White/images/favicon.ico\" />
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=\"UTF-8\">";
+echo "<title>$titleinfo</title>";
+
+// ---------- Favicon ---------
+if (file_exists($skindir."/images/favicon.ico")) 
+{
+	echo "<link rel='icon' href='".THEME_ABS."favicon.ico' type='image/x-icon' />\n<link rel='shortcut icon' href='".THEME_ABS."favicon.ico' type='image/xicon' />\n";
+}
+elseif (file_exists(_BASEDIR."favicon.ico")) 
+{
+	echo "<link rel='icon' href='"._BASEDIR."favicon.ico' type='image/x-icon' />\n<link rel='shortcut icon' href='"._BASEDIR."favicon.ico' type='image/xicon' />\n";
+}
+ 
+
+echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset="._CHARSET."\">";
 if(!isset($_GET['action']) || $_GET['action'] != "printable") {
 echo "<script language=\"javascript\" type=\"text/javascript\" src=\""._BASEDIR."includes/javascript.js\"></script>
 <link rel=\"alternate\" type=\"application/rss+xml\" title=\"$sitename RSS Feed\" href=\""._BASEDIR."rss.php\">";
@@ -420,7 +434,9 @@ a.pophelp:hover span{ /*the span will display just on :hover state*/
 }
 
 </style>
-<link rel=\"stylesheet\" type=\"text/css\" href='$skindir/style.css'>";
+<link rel='stylesheet' type='text/css' href='$skindir/style.css' /> \n
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+";
 }
 echo "</head>";
 $headerSent = true;

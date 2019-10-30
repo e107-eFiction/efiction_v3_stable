@@ -1,7 +1,7 @@
 <?php
-// Defines the character set for your language/location
 
-define ("_CHARSET", "ISO-8859-1");
+
+
 
 // Defines the doc type.  Most people will not need to change this.
 define ("_DOCTYPE", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">");
