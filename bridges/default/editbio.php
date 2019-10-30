@@ -155,8 +155,8 @@ function random_string ($charset_string, $length)
 			$result = dbquery("UPDATE "._AUTHORTABLE." SET realname='".descript(strip_tags(escapestring($_POST['realname'])), $allowed_tags)."', email='$email', bio='".descript(strip_tags(escapestring($_POST['bio']), $allowed_tags))."', image='".($imageupload && !empty($_POST['image']) ? escapestring($_POST['image']) : "")."' WHERE uid = '$uid'");
 			if($result) { // only if the info actually got updated.
 				if($oldinfo['email'] != $email) { // Need to reset the session and cookies in this case.
-					$_SESSION[SITEKEY."_salt"] = md5($email+$encryptedpassword);
-					if(isset($_COOKIE[SITEKEY."_salt"])) setcookie(SITEKEY."_salt", md5($email+$encryptedpassword),  time()+60*60*24*30, "/");		
+					$_SESSION[SITEKEY."_salt"] = md5($email . $encryptedpassword);
+					if(isset($_COOKIE[SITEKEY."_salt"])) setcookie(SITEKEY."_salt", md5($email . $encryptedpassword),  time()+60*60*24*30, "/");		
 				}
 			}
 			$output .= write_message(_ACTIONSUCCESSFUL."  ".(isset($_GET['uid']) ? _BACK2ADMIN : _BACK2ACCT));

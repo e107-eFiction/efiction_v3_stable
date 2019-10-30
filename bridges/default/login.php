@@ -46,12 +46,12 @@ if(!defined("_LOGINCHECK")) exit( );
 		}
 		if(isset($_POST['cookiecheck'])) {
 			setcookie($sitekey."_useruid",$passwd['uid'], time()+60*60*24*30, "/");
-			setcookie($sitekey."_salt", md5($passwd['email']+$encryptedpassword),  time()+60*60*24*30, "/");
+			setcookie($sitekey."_salt", md5($passwd['email'] . $encryptedpassword),  time()+60*60*24*30, "/");
 		}
 		if($passwd['password'] == $encryptedpassword) {
 			if(!isset($_SESSION)) session_start( );
 			$_SESSION[$sitekey."_useruid"] = $passwd['uid'];
-			$_SESSION[$sitekey."_salt"] = md5($passwd['email']+$encryptedpassword);
+			$_SESSION[$sitekey."_salt"] = md5($passwd['email'] . $encryptedpassword);
 		}
 
 		else { 

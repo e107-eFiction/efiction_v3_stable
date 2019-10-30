@@ -5,7 +5,7 @@ if(!defined("_CHARSET")) exit( );
 
 if (!empty($_COOKIE[$sitekey."_useruid"])  && !isset($_SESSION[$sitekey."_useruid"])) {
 	$userdata = dbassoc(dbquery("SELECT "._UIDFIELD." as uid, "._PENNAMEFIELD." as penname, "._EMAILFIELD." as email, "._PASSWORDFIELD." as password, ap.* FROM "._AUTHORTABLE." LEFT JOIN ".TABLEPREFIX."fanfiction_authorprefs as ap ON ap.uid = "._UIDFIELD." WHERE "._UIDFIELD." = '".$_COOKIE[$sitekey."_useruid"]."'"));
-	if($userdata && $userdata['level'] != -1 && $_COOKIE[$sitekey.'_pwd'] == md5($userdata['email']+$userdata['password'])) {
+	if($userdata && $userdata['level'] != -1 && $_COOKIE[$sitekey.'_pwd'] == md5($userdata['email'] . $userdata['password'])) {
 		define("USERUID", $userdata['uid']);
 		define("USERPENNAME", $userdata['penname']);
 		if(!isset($_SESSION[$sitekey."_skin"]) && !empty($userdata['userskin'])) $siteskin = $userdata['userskin'];

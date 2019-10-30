@@ -16,7 +16,7 @@ if(!defined("_LOGINCHECK")) exit( );
 		if($passwd['user_password'] == $encryptedpassword) {
 			if(!isset($_SESSION)) session_start( );
 			$_SESSION[$sitekey."_useruid"] = $passwd['user_id'];
-			$_SESSION[$sitekey."_salt"] = md5($passwd['user_email']+$encryptedpassword);
+			$_SESSION[$sitekey."_salt"] = md5($passwd['user_email'] . $encryptedpassword);
 			if(isset($_POST['cookiecheck'])) {
 				$cookie_exp = time() + 3600*24*30; } else { $cookie_exp = time() + 3600*3; 
 			}
