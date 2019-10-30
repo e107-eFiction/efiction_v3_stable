@@ -90,7 +90,7 @@ if($nid) {
 			$c->assign("comment", format_story($comments['comment']));
 			$c->assign("uname", $comments['penname']);
 			$c->assign("date", date("$dateformat $timeformat", $comments['date']));
-			if(isADMIN && uLevel < 4)
+			if(isADMIN && uLEVEL < 4)
 				$c->assign("adminoptions", "<div class='adminoptions'><span class='label'>"._ADMINOPTIONS.":</span> [<a href=\"news.php?action=newsstory&amp;edit=".$comments['cid']."&amp;nid=$nid\">"._EDIT."</a>] [<a href=\"news.php?action=newsstory&amp;cid=".$comments['cid']."&amp;del=1&amp;nid=$nid\">"._DELETE."</a>]</div>");
 			$c->assign("oddeven", ($count % 2 ? "odd" : "even"));
 			$count++;
@@ -137,7 +137,7 @@ else {
 		$news->assign("skindir", $skindir);
 		if($newscomments)
 			$news->assign("newscomments", "<a href=\"news.php?action=newsstory&amp;nid=".$stories['nid']."\">".$stories['comments']." "._COMMENTS."</a>");
-		if(isADMIN && uLevel < 4) 
+		if(isADMIN && uLEVEL < 4) 
 			$news->assign("adminoptions", "<a href=\"admin.php?action=news&amp;form=".$stories['nid']."\">"._EDIT."</a> | <a href=\"admin.php?action=news&amp;delete=".$stories['nid']."\">"._DELETE."</a>");
 		$news->assign("oddeven", ($counter % 2 ? "even" : "odd"));
 		$counter++;

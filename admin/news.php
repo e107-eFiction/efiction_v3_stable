@@ -24,7 +24,7 @@
 // ----------------------------------------------------------------------
 
 if(!defined("_CHARSET")) exit( );
-if(uLevel > 3) accessDenied();
+if(uLEVEL > 3) accessDenied();
 		$output .= "<div id=\"pagetitle\">"._NEWS."</div>";
 		if(isset($_POST['submit'])) {
 			$title = addslashes(strip_tags(descript($_POST['title']), $allowed_tags));
