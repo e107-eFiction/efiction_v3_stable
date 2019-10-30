@@ -44,8 +44,8 @@ if (!empty($_COOKIE[$sitekey."_useruid"])) {
 }
 if(!empty($_SESSION[$sitekey."_useruid"]) && !defined("USERUID")) {
 	$userdata = dbassoc(dbquery("SELECT ap.*, "._UIDFIELD." as uid, "._PENNAMEFIELD." as penname, "._EMAILFIELD." as email, "._PASSWORDFIELD." as password FROM "._AUTHORTABLE." LEFT JOIN ".TABLEPREFIX."fanfiction_authorprefs as ap ON ap.uid = "._UIDFIELD." WHERE "._UIDFIELD." = '".$_SESSION[$sitekey."_useruid"]."'"));
-	if($userdata && $userdata['level'] != -1 && $_SESSION[$sitekey.'_salt'] == md5($userdata['email']+$userdata['password'])) {
-		define("USERUID", $userdata['uid']);
+	if($userdata && $userdata['level'] != -1 && $_SESSION[$sitekey.'_salt'] == md5($userdata['email'] . $userdata['password'])) {
+		define("USERUID", $userdata['uid']);        
 		define("USERPENNAME", $userdata['penname']);
 		// the following line fixes missing authorpref rows
 		if(empty($userdata['userskin'] )) dbquery("INSERT INTO ".TABLEPREFIX."fanfiction_authorprefs(uid, userskin, storyindex, sortby, tinyMCE) VALUES('".$userdata['uid']."', '$defaultskin', '$displayindex', '$defaultsort', '$tinyMCE')");
