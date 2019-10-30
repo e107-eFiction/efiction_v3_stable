@@ -21,11 +21,11 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-if($_GET['action'] == "list") {
+if(isset($_GET['action']) && $_GET['action'] == "list") {
 	$current = "members";
 	$list = "members";
 }
-else if($_GET["list"] == "authors") $current = "authors";
+else if(isset($_GET['list']) && $_GET["list"] == "authors") $current = "authors";
 else $current = "members";
 
 include ("header.php");
