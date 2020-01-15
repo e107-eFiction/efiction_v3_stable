@@ -10,6 +10,7 @@ function dbconnect($dbhost, $dbuser, $dbpass, $dbname ) {
 		die(_FATALERROR." "._NOTCONNECTED);
 	}
 	mysqli_query($mysql_access, "SET SESSION sql_mode = 'MYSQL40'");
+    mysqli_query($mysql_access, "SET NAMES UTF8;");
 	return $mysql_access;
 }
 
