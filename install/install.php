@@ -54,7 +54,7 @@ if(ini_get("magic_quotes_gpc")) {
 }
 
 define("_BASEDIR", "../");
-
+define("_CHARSET", "utf-8");
 Header('Cache-Control: private, no-cache, must-revalidate, max_age=0, post-check=0, pre-check=0');
 header ("Pragma: no-cache"); 
 header ("Expires: 0"); 

@@ -38,7 +38,7 @@ if(get_magic_quotes_gpc()){
 }
 
 // Defines the character set for your language/location
-define ("_CHARSET", "UTF-8");
+define ("_CHARSET", "utf-8");
 
 // Prevent possible XSS attacks via $_GET.
 foreach ($_GET as $v) {
@@ -217,6 +217,7 @@ if($current == "viewuser" && isNumber($uid)) {
 	$titleinfo = "$sitename :: $penname";
 }
 echo _DOCTYPE."<html><head>";
+echo "<meta charset='utf-8' />";
 if(!isset($titleinfo)) $titleinfo = "$sitename :: $slogan";
 if(isset($metaDesc)) echo "<meta name='description' content='$metaDesc'>";
 echo "<title>$titleinfo</title>";
