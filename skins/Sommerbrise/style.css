@@ -5,11 +5,7 @@
 		Author: Nadia Volkrodt
 		Author E-Mail: nadia@artphilia.de
 */
-
-
-/* import fonts */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Courgette);
-@import url(http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css); 
+ 
 
 /* import basic settings, IE-fixes and grids */
 @import url(base.css);
