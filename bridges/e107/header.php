@@ -75,6 +75,8 @@ while (!file_exists($folder_level."header.php")) { $folder_level .= "../"; }
 if(!defined("_BASEDIR")) define("_BASEDIR", $folder_level);
 
 @ include_once(_BASEDIR."config.php");
+@ include_once(_BASEDIR.UN_FULLAPP_PATH."class2.php");
+
 if(empty($sitekey)) {
 	header("Location: install/install.php");
 	exit( );
