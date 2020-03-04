@@ -436,6 +436,11 @@ a.pophelp:hover span{ /*the span will display just on :hover state*/
 	width: 300px;
 }
 
+@media all and (max-width: 767px) { 
+html>body .column {
+    width: 100%;
+}
+
 </style>
 <link rel='stylesheet' type='text/css' href='$skindir/style.css' /> \n
 <meta name='viewport' content='width=device-width, initial-scale=1.0' />
