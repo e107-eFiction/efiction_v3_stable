@@ -7,7 +7,10 @@ to restore from a failed bridge.
 This bridge can be used only for efiction installed as the subdirectory of e107 site
 
 1. add 
-`@ include_once(UN_FULLAPP_PATH."class2.php");`
+`@ include_once(_BASEDIR.UN_FULLAPP_PATH."class2.php");
+
+Note: Full path is important because modules, example:
+`define("UN_FULLAPP_PATH", "../");`
 
 after 
 `@ include_once(_BASEDIR."config.php");`
@@ -30,7 +33,17 @@ if your e107 use the same theme as efiction, user will not notice difference
 
 
 
+## Way how to load e107 theme
+(to have css in one place and use e107 caching)
 
+`$cssId =  "theme_css";`
+`$e_js->renderJs($cssId, false, 'css', false);`
+`$e_js->renderCached('css');`
 
+- removed all css from header.php
+
+## User Profile Settings
+- add panel with /user/settings 
+- use modified editbio.php to remove account related info (name, password, email)
 
 
