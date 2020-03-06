@@ -28,8 +28,9 @@ if(!defined("_CHARSET")) exit( );
 
 
 function sendemail($to_name,$to_email,$from_name,$from_email,$subject,$message,$type="plain",$cc="",$bcc="") {
-
-	global $language, $smtp_host, $smtp_username, $smtp_password;
+                 
+	global $language, $smtp_host, $smtp_username, $smtp_password, $siteemail;     
+   
 	// Check for hackers and spammers and bad input
 	if(!isset($_SERVER['HTTP_USER_AGENT'])) return false;
 	$badStrings = array("Content-Type:", "MIME-Version:", "Content-Transfer-Encoding:", "bcc:", "cc:");
@@ -71,7 +72,7 @@ function sendemail($to_name,$to_email,$from_name,$from_email,$subject,$message,$
 		$mail->Password = $smtp_password;
 	}
 	$mail->CharSet = _CHARSET;
-	$mail->From = $from_email;
+	$mail->From = $siteemail;
 	$mail->FromName = $from_name;
 	$mail->AddAddress($to_email, $to_name);
 	$mail->AddReplyTo($from_email, $from_name);
