@@ -4,7 +4,8 @@ if(!defined("_CHARSET")) exit( );
 if(file_exists(_BASEDIR."blocks/shoutbox/{$language}.php")) include_once(_BASEDIR."blocks/shoutbox/{$language}.php");
 else include_once(_BASEDIR."blocks/shoutbox/en.php");
 $content = "";
-if(isset($_POST['shout']) && (isMEMBER || !empty($blocks['shoutbox']['guestshouts']))) {
+if(isset($_POST['shouthidden']) && (isMEMBER || !empty($blocks['shoutbox']['guestshouts']))) {
+	http_response_code(202);
 	if(isMEMBER) $shout_name = USERUID;
 	else {
 		$shout_name = trim(descript($_POST['shoutname']));
@@ -24,7 +25,23 @@ if(isset($_POST['shout']) && (isMEMBER || !empty($blocks['shoutbox']['guestshout
 
 }
 if(isMEMBER || !empty($blocks['shoutbox']['guestshouts'])) {
-	$content = "<script language=\"javascript\" type=\"text/javascript\">
+	$content = "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>
+	<script language=\"javascript\" type=\"text/javascript\">
+	$(document).ready(function() {
+		$(function () {
+		  $('#shout').click( function () {
+			$.ajax({
+			  type: 'post',
+			  url: $('#shoutbox').attr('action'),
+			  data: $('#shoutbox').serialize(),
+			  success: function () {
+				location.reload();
+				$('#shout_message').val(\"\");
+			  }
+			});
+		  });
+		});
+	});
 var shoutend = '"._SHOUTEND."';
 function ismaxlength(obj){
 var mlength = 200
@@ -40,7 +57,8 @@ if (document.shoutbox.shout_message.value.length >= mlength) {
 	if(!isMEMBER) $content .= "<div><label for='shoutname'>"._NAME.":</label> <input type='text' name='shoutname' value='' style='display: block; width: 90%; margin: 0 auto;' maxlength='30'></div>";
 	else $content .= "<div><span class='label'>"._NAME.":</span> ".USERPENNAME."</div>";
 	if(!isMEMBER && $captcha) $content .= "<div><label for='userdigit'>"._CAPTCHANOTE."</label><input MAXLENGTH=5 SIZE=5 name=\"userdigit\" type=\"text\" value=\"\"><div style='text-align: center;'><img width=120 height=40 src=\""._BASEDIR."includes/button.php\" style=\"border: 1px solid #111;\"></div></div>";
-	$content .= "<div><label for='shout_MESSAGE'>"._SHOUT.":</label> <textarea name='shout_message' class='mceNoEditor' id='shout_message' rows='4' cols='15' maxlength='200' style='display: block; width: 90%; margin: 0 auto;' onkeyDown='return ismaxlength(this)'></textarea></div> <input type='submit' name='shout' id='shout' value='"._SHOUT."'> <input size='1' class='small' type='text' id='counter' value='200'></form></div>";
+	$content .= "<div><label for='shout_MESSAGE'>"._SHOUT.":</label> <textarea name='shout_message' class='mceNoEditor' id='shout_message' rows='4' cols='15' maxlength='200' style='display: block; width: 90%; margin: 0 auto;' onkeyDown='return ismaxlength(this)'></textarea></div> <input type='button' name='shout' id='shout' value='"._SHOUT."'> <input size='1' class='small' type='text' id='counter' value='200'> <input type='hidden' name='shouthidden' id='shouthidden' value='"._SHOUT."'>
+	</form></div>";
 }
 if(isset($blocks['shoutbox']['shoutlimit'])) $shoutlimit = $blocks['shoutbox']['shoutlimit'];
 else $shoutlimit = 10;
