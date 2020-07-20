@@ -258,8 +258,8 @@ if($add == "stories") {
 		list($title, $owner) = dbrow($series);	
 		$output .= "<div class='sectionheader'>"._SERIES.": ".stripslashes($title)."</div>";
 		if(($admin || USERUID == $owner ) && isset($_GET['stories']) && $_GET['stories'] == "others") {
-			if($let == _OTHER) $letter= "author.penname REGEXP '^[^a-z]'";
-			else $letter = "author.penname LIKE '$let%'";
+			if($let == _OTHER) $letter= _PENNAMEFIELD." REGEXP '^[^a-z]'";
+			else $letter = _PENNAMEFIELD." LIKE '$let%'";
 			$pagelink = "series.php?action=$action&amp;add=stories&amp;stories=others&amp;seriesid=$seriesid&amp;";
 			$authorlink = "<a href=\"series.php?action=$action&amp;add=stories&amp;seriesid=$seriesid&amp;stories=";
 			$countquery = _MEMBERCOUNT." WHERE ap.stories > 0".(isset($letter) ? " AND $letter" : "");
