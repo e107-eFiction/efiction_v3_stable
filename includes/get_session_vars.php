@@ -38,8 +38,8 @@ if (!empty($_COOKIE[$sitekey."_useruid"])) {
 		define("uLEVEL", $userdata['level']);
 		define("isADMIN", uLEVEL > 0 ? true : false);
 		define("isMEMBER", true);
-		if(EMPTY($_SESSION[$sitekey."_agecontsent"])) $ageconsent = $userdata['ageconsent'];
-		else $ageconsent = $_SESSION[$sitekey."_agecontsent"];
+		if(EMPTY($_SESSION[$sitekey."_ageconsent"])) $ageconsent = $userdata['ageconsent'];
+		else $ageconsent = $_SESSION[$sitekey."_ageconsent"];
 	}
 }
 if(!empty($_SESSION[$sitekey."_useruid"]) && !defined("USERUID")) {
@@ -55,8 +55,8 @@ if(!empty($_SESSION[$sitekey."_useruid"]) && !defined("USERUID")) {
 		define("uLEVEL", $userdata['level']);
 		define("isADMIN", uLEVEL > 0 ? true : false);
 		define("isMEMBER", true);
-		if(!isset($_SESSION[$sitekey."_agecontsent"])) $ageconsent = $userdata['ageconsent'];
-		else $ageconsent = $_SESSION[$sitekey."_agecontsent"];
+		if(!isset($_SESSION[$sitekey."_ageconsent"])) $ageconsent = $userdata['ageconsent'];
+		else $ageconsent = $_SESSION[$sitekey."_ageconsent"];
 	}
 }
 if(!defined("USERUID")) define("USERUID", 0);
