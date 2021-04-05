@@ -50,7 +50,7 @@ function sendemail($to_name,$to_email,$from_name,$from_email,$subject,$message,$
 	$subject = descript(strip_tags($subject));
 	$message = descript($message);
 	// End paranoia
-
+ 
 	// Try to determine the right $type setting
  	if(strpos($message, "<br>") || strpos($message, "</p>") || strpos($message, "<br />") || strpos($message, "<br>") || strpos($message, "<a href")) $type = "html";
 	
@@ -100,7 +100,7 @@ function sendemail($to_name,$to_email,$from_name,$from_email,$subject,$message,$
 		$mail->ErrorInfo;
 		$mail->ClearAllRecipients();
 		$mail->ClearReplyTos();
-		return false;
+		return $mail->ErrorInfo;
 	} else {
 		$mail->ClearAllRecipients(); 
 		$mail->ClearReplyTos();

@@ -4,7 +4,7 @@
 
 
 // Defines the doc type.  Most people will not need to change this.
-define ("_DOCTYPE", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">");
+define ("_DOCTYPE", "<!doctype html>");
 
 // Your alphabet list.  If you need other than single characters be sure to enclose the character entity in quotes.  For example: "&#338;"
 define ("_OTHER", "Other");
