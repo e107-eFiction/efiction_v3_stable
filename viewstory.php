@@ -344,7 +344,7 @@ else {
 	if(empty($viewed) || (is_array($viewed) && !in_array($sid, $viewed))) {
 		dbquery("UPDATE ".TABLEPREFIX."fanfiction_stories SET count = count + 1 WHERE sid = '$sid'  LIMIT 1");
 		$viewed[] = $sid;
-		$_SESSION['viewed'] = $viewed;
+		$_SESSION[SITEKEY."_viewed"] = $viewed;
 	}
 	dbquery("UPDATE ".TABLEPREFIX."fanfiction_chapters SET count = count + 1 WHERE chapid = '$chapid' LIMIT 1");
 	// end counters
