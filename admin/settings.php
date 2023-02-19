@@ -178,8 +178,10 @@ if(isset($_POST['submit'])) {
 }
 	$settingsresults = dbquery("SELECT * FROM ".$settingsprefix."fanfiction_settings WHERE sitekey ='".SITEKEY."'");
 	$settings = dbassoc($settingsresults);
+ 
 	foreach($settings as $var => $val) {
-		$$var = stripslashes($val);
+		if(is_NULL($val)) $val = '';
+		$$var = stripslashes($val );
 	}
 
 	$output .= "<form method='POST' class='tblborder' style='' enctype='multipart/form-data' action='".($action == "settings" ? "admin.php?action=settings" : $_SERVER['PHP_SELF']."?step=".$_GET['step'])."&amp;sect=$sect'>";

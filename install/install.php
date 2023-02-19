@@ -60,20 +60,21 @@ header ("Pragma: no-cache");
 header ("Expires: 0"); 
 
 $output = "";
+$language = "";
 
 include ("../includes/class.TemplatePower.inc.php");
 
 if(!isset($_GET['step']) || $_GET['step'] == 2) {
-	include ("../languages/en.php");
-	include ("../languages/en_admin.php");
+	//include ("../languages/en.php");
+	//include ("../languages/en_admin.php");
 	include ("languages/en.php");
 }
 else if(isset($_REQUEST['language'])) {
 	$language = $_REQUEST['language'];
-	if(file_exists("../languages/".$language.".php")) include ("../languages/".$language.".php");
-	else include ("../languages/en.php");
-	if(file_exists("../languages/".$language."_admin.php")) include("../languages/".$language."_admin.php");
-	else include ("../languages/en_admin.php");
+	//if(file_exists("../languages/".$language.".php")) include ("../languages/".$language.".php");
+	//else include ("../languages/en.php");
+	//if(file_exists("../languages/".$language."_admin.php")) include("../languages/".$language."_admin.php");
+	//else include ("../languages/en_admin.php");
 	if(file_exists("languages/".$language.".php")) include("languages/".$language.".php");
 	else include ("languages/en.php");
 }
@@ -146,14 +147,15 @@ $tpl->newBlock("footer");
 $tpl->assign( "footer", "eFiction $version &copy; 2007. <a href='http://efiction.org/'>http://efiction.org/</a>");
 $tpl->gotoBlock( "_ROOT" );
 
+if(!isset($_GET['step']))  $_GET['step'] = 0;
 switch($_GET['step']) {
 	case "9":
 		if(isset($_POST['submit'])) {
 			$penname = descript($_POST['newpenname']);
 			if((!$_POST['email']) && !isADMIN) $fail .= "<div style='text-align: center;'>"._EMAILREQUIRED." "._TRYAGAIN."</div>";
 			if($penname && !preg_match("!^[a-z0-9_ ]{3,30}$!i", $penname)) $fail = "<div style='text-align: center;'>"._BADUSERNAME." "._TRYAGAIN."</div>";
-			if(!preg_match("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+$/", $_POST[email])) $fail = "<div style='text-align: center;'>"._INVALIDEMAIL." "._TRYAGAIN."</div>";
-			if($_POST['password'] == $_POST['password2']) $encryptpassword = md5($_POST[password]);
+			if(!preg_match("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+$/", $_POST['email'])) $fail = "<div style='text-align: center;'>"._INVALIDEMAIL." "._TRYAGAIN."</div>";
+			if($_POST['password'] == $_POST['password2']) $encryptpassword = md5($_POST['password']);
 			else $fail =  write_message(_PASSWORDTWICE);
 			if(!isset($fail)) {
 				$result = dbquery("INSERT INTO ".$tableprefix."fanfiction_authors(`penname`, `email`, `password`, `date`) VALUES('$penname', '".$_POST['email']."', '$encryptpassword', now( ))");

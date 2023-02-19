@@ -28,14 +28,6 @@ if(isset($_GET['benchmark'])) {
 	$start = ((float)$usec + (float)$sec);
 }
 $headerSent = false;
-if(get_magic_quotes_gpc()){
-	foreach($_POST as $var => $val) {
-		$_POST[$var] = is_array( $val ) ? array_map( 'stripslashes', $val ) : stripslashes( $val );
-	}
-	foreach($_GET as $var => $val) {
-		$_GET[$var] = is_array( $val ) ? array_map( 'stripslashes', $val ) : stripslashes( $val );
-	}
-}
 
 // Defines the character set for your language/location
 define ("_CHARSET", "utf-8");
