@@ -64,17 +64,35 @@ $language = "";
 
 include ("../includes/class.TemplatePower.inc.php");
 
+/* PHP 8 fix - other way is separated LANs to smaller files */
+$allowed_tags = '';
+$recentdays = 7;
+$sitename = "";
+$url = "" ;
+$multiplecats = '';
+$minwords = '';
+$maxwords = '';
+$action = '';
+$pwdsetting = '';
+$imagewidth = '';
+$imageheight = '';
+$version = '';
+$user = array();
+$user['penname'] = '';
+$user['email'] = '';
+$penname = '';
+
 if(!isset($_GET['step']) || $_GET['step'] == 2) {
-	//include ("../languages/en.php");
-	//include ("../languages/en_admin.php");
+	include ("../languages/en.php");
+	include ("../languages/en_admin.php");
 	include ("languages/en.php");
 }
 else if(isset($_REQUEST['language'])) {
 	$language = $_REQUEST['language'];
-	//if(file_exists("../languages/".$language.".php")) include ("../languages/".$language.".php");
-	//else include ("../languages/en.php");
-	//if(file_exists("../languages/".$language."_admin.php")) include("../languages/".$language."_admin.php");
-	//else include ("../languages/en_admin.php");
+	if(file_exists("../languages/".$language.".php")) include ("../languages/".$language.".php");
+	else include ("../languages/en.php");
+	if(file_exists("../languages/".$language."_admin.php")) include("../languages/".$language."_admin.php");
+	else include ("../languages/en_admin.php");
 	if(file_exists("languages/".$language.".php")) include("languages/".$language.".php");
 	else include ("languages/en.php");
 }
@@ -83,6 +101,7 @@ include("../config.php");
 $dbconnect = dbconnect($dbhost, $dbuser, $dbpass, $dbname );
 $settings = dbquery("SELECT tableprefix, language FROM ".$settingsprefix."fanfiction_settings WHERE sitekey = '".$sitekey."'");
 list($tableprefix, $language) = dbrow($settings);
+
 define("TABLEPREFIX", $tableprefix);
 define("SITEKEY", $sitekey);
 if(file_exists("../languages/".$language.".php")) include ("../languages/".$language.".php");
@@ -169,8 +188,10 @@ switch($_GET['step']) {
 		}
 		else {
 			$output .= "<div id='pagetitle'>"._ADMINACCT."</div><form method=\"POST\" class='tblborder' style='margin: 1em auto; width: 400px;' enctype=\"multipart/form-data\" action=\"install.php?step=9\">
-			<div class='row'><label for='newpenname'>"._PENNAME.":</label> <INPUT name=\"newpenname\" type=\"text\" class=\"textbox\" maxlength=\"200\" value=\"$user[penname]\"></div>
-		 	<div class='row'><label for='email'>"._EMAIL.":</label> <INPUT  type=\"text\" class=\"textbox=\" name=\"email\" value=\"$user[email]\" maxlength=\"200\"></div>
+			<div class='row'><label for='newpenname'>"._PENNAME.":</label> 
+			<input name=\"newpenname\" type=\"text\" class=\"textbox\" maxlength=\"200\" value=\"".$user['penname']."\"></div>
+		 	<div class='row'><label for='email'>"._EMAIL.":</label> <INPUT  type=\"text\" class=\"textbox=\" name=\"email\" value=\"".$user['email'].
+			"\" maxlength=\"200\"></div>
 			<div class='row'><label for='password'>"._PASSWORD.":</label>  <INPUT name=\"password\" class=\"textbox\" value=\"\" type=\"password\"></div> 
 			<div class='row'><label for='password2'>"._PASSWORD2.":</label> <INPUT name=\"password2\" class=\"textbox=\" value=\"\" type=\"password\"></div>
 			<div style='text-align: center;'><INPUT type=\"submit\"class=\"button\" name=\"submit\" value=\"submit\"></div></form>";	
@@ -776,6 +797,9 @@ $output .= write_message(_TABLEFAILED."<br /><br /><a href='install.php?step=4'>
 			$dbconnect = dbconnect($dbhost, $dbuser, $dbpass, $dbname );
 			$settings = dbquery("SELECT tableprefix, language FROM ".$settingsprefix."fanfiction_settings WHERE sitekey = '".$sitekey."'");
 			list($tableprefix, $language) = dbrow($settings);
+			
+			if ($tableprefix == '') $tableprefix = $settingsprefix;
+
 			define("TABLEPREFIX", $tableprefix);
 			define("SITEKEY", $sitekey);
 			
@@ -786,7 +810,6 @@ $output .= write_message(_TABLEFAILED."<br /><br /><a href='install.php?step=4'>
 				$settingsresults = dbquery("SELECT * FROM ".$settingsprefix."fanfiction_settings WHERE sitekey = '".SITEKEY."'");
 			}
 			$settings = dbassoc($settingsresults);
-			define("_BASEDIR", "../");
 			foreach($settings as $var => $val) {
 				$$var = $val;
 			}

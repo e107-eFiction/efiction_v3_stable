@@ -190,4 +190,6 @@ define("_HELP_DBPASS", "Dies ist das Passwort des Datenbankbenutzers.");
 define("_HELP_INSTALL_SITEKEY", "Der Site-Key wird für den Zugriff auf die Seiteneinstellungen benutzt und verhindert Konflikte bei mehreren Installationen auf einer Domain. Du <strong>musst</strong> für jede eFiction-Installation einen <strong>eindeutigen</strong> Site-Key angeben! Wenn du das Feld leer lässt, wird das Script einen zufälligen Key generieren.");
 define("_HELP_SETTINGSPREFIX", "Du kannst unabhängig von den anderen Tabellen ein Präfix für die Einstellungstabelle angeben. Dies erlaubt es, mehrere Instanzen von eFiction in der selben Datenbank mit den gleichen Einstellungen zu betreiben.");
 
-?>
+//  Missing LANs - fatal error  
+define("_EMAILREQUIRED", "Email is required");
+define("_BADSITEKEY", "Wrong Sitekey");

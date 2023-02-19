@@ -197,13 +197,6 @@ define("_HELP_DBPASS", "This is the password for the database user.");
 define("_HELP_INSTALL_SITEKEY", "The sitekey will be used to access the settings for your site.  It is also used to prevent crossed member logins when two or more sites are installed on the same domain.  You <strong>must</strong> have a <strong>unique</strong> sitekey for each eFiction site!  If you leave this blank, the script will randomly generate another one for you.");
 define("_HELP_SETTINGSPREFIX", "This allows you to define a separate prefix for the settings table.  This allows you to share the settings table among more than one eFiction site in the same database.");
 
-/* LANs from en_admin.php needed in install.php - include all file is not good idea in PHP 8 */
-define("_SITEKEY", "Site Key");
-define("_LANGUAGE", "Language");
-define("_HELP_LANGUAGE", "The language the site will be displayed in.  The language files are found in the languages/ folder.  You may create your own translations through these files.");
-
-/* LANs from en.php needed in STEP 1 */
-define("_CONTINUE", "Continue");
-
-/* Missing LANs - fatal error */
+//  Missing LANs - fatal error  
 define("_EMAILREQUIRED", "Email is required");
+define("_BADSITEKEY", "Wrong Sitekey");

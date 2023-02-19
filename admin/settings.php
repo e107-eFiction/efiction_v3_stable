@@ -105,7 +105,7 @@ if(isset($_POST['submit'])) {
 		$submissionsoff = $_POST['newsubmissionsoff'] == 1 ? 1 : 0;
 		$autovalidate = $_POST['newautovalidate'] == 1 ? 1 : 0;
 		$coauthallowed = $_POST['newcoauthallowed'] == 1 ? 1 : 0;
-		$store = !empty($_POST['newstore']) ? $_POST['newstore'] == "files" ? "files" : "mysql" : $store;
+		$store = !empty($_POST['newstore']) ? ($_POST['newstore'] == "files" ? "files" : "mysql" ) : $store;
 		$storiespath = descript($_POST['newstoriespath']);
 		$minwords = isNumber($_POST['newminwords']) ? $_POST['newminwords'] : 0;
 		$maxwords = isNumber($_POST['newmaxwords']) ? $_POST['newmaxwords'] : 0;
