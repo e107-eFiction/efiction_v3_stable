@@ -7,7 +7,10 @@ if(!isset($current)) $current = "";
 
 		$blockquery = dbquery("SELECT * FROM ".TABLEPREFIX."fanfiction_blocks WHERE block_name = '$admin'");
 		while($block = dbassoc($blockquery)) {
-			$blocks[$block['block_name']] = unserialize($block['block_variables']);
+			if ($block['block_variables'])
+			{
+				$blocks[$block['block_name']] = unserialize($block['block_variables']);
+			}
 			$blocks[$block['block_name']]['title'] = $block['block_title'];
 			$blocks[$block['block_name']]['file'] = $block['block_file'];
 			$blocks[$block['block_name']]['status'] = $block['block_status'];

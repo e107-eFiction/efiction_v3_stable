@@ -81,6 +81,7 @@ unset($settings['tableprefix']);
 define("STORIESPATH", $settings['storiespath']);
 unset($settings['storiespath']);
 foreach($settings as $var => $val) {
+	if (is_NULL($val)) $val = '';
 	$$var = stripslashes($val);
 	$settings[$var] = htmlspecialchars($val);
 }
@@ -158,7 +159,10 @@ if($maintenance && !isADMIN && basename($_SERVER['PHP_SELF']) != "maintenance.ph
 
 $blockquery = dbquery("SELECT * FROM ".TABLEPREFIX."fanfiction_blocks");
 while($block = dbassoc($blockquery)) {
-	$blocks[$block['block_name']] = unserialize($block['block_variables']);
+	if ($block['block_variables'])
+	{
+		$blocks[$block['block_name']] = unserialize($block['block_variables']);
+	}
 	$blocks[$block['block_name']]['title'] = $block['block_title'];
 	$blocks[$block['block_name']]['file'] = $block['block_file'];
 	$blocks[$block['block_name']]['status'] = $block['block_status'];
@@ -215,11 +219,7 @@ if(isset($metaDesc)) echo "<meta name='description' content='$metaDesc'>";
 echo "<title>$titleinfo</title>";
 
 // ---------- Favicon ---------
-if (file_exists($skindir."/images/favicon.ico")) 
-{
-	echo "<link rel='icon' href='".THEME_ABS."favicon.ico' type='image/x-icon' />\n<link rel='shortcut icon' href='".THEME_ABS."favicon.ico' type='image/xicon' />\n";
-}
-elseif (file_exists(_BASEDIR."favicon.ico")) 
+if (file_exists(_BASEDIR."favicon.ico")) 
 {
 	echo "<link rel='icon' href='"._BASEDIR."favicon.ico' type='image/x-icon' />\n<link rel='shortcut icon' href='"._BASEDIR."favicon.ico' type='image/xicon' />\n";
 }

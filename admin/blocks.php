@@ -65,9 +65,13 @@ $content = "";
 // In case the skin has already overridden the block settings or we've just changed the settings.
 $blockquery = dbquery("SELECT * FROM ".TABLEPREFIX."fanfiction_blocks");
 while($block = dbassoc($blockquery)) {
-	$blocks[$block['block_name']] = unserialize($block['block_variables']);
+
+	if($block['block_variables']) {
+		$blocks[$block['block_name']] = unserialize($block['block_variables']);
+	}
+	
 	$blocks[$block['block_name']]['title'] = $block['block_title'];
-	 $blocks[$block['block_name']]['file'] = $block['block_file'];
+	$blocks[$block['block_name']]['file'] = $block['block_file'];
 	$blocks[$block['block_name']]['status'] = $block['block_status'];
 }
 	unset($content);
