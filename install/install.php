@@ -67,7 +67,7 @@ include ("../includes/class.TemplatePower.inc.php");
 /* PHP 8 fix - other way is separated LANs to smaller files */
 $allowed_tags = '';
 $recentdays = 7;
-$sitename = "";
+$sitename = "";  // this breaks stuff in PHP 8.2 
 $url = "" ;
 $multiplecats = '';
 $minwords = '';
@@ -968,7 +968,7 @@ if(!empty(\$sitekey)) \$dbconnect = dbconnect(\$dbhost, \$dbuser,\$dbpass, \$dbn
 		else { 
 			if(file_exists("../config.php") && !isset($mysql_access)) include("../config.php");
 			if(isset($tinyMCE)) $output .= write_message(_CONFIG2DETECTED);
-			else if(isset($sitename)) $output .= write_message(_CONFIG1DETECTED);
+			else if(isset($sitename) && $sitename) $output .= write_message(_CONFIG1DETECTED);
 			else {
 				$output .=  
 					"<form method='POST' enctype='multipart/form-data' action='install.php?step=1' class='tblborder' style='width: 350px; margin: 1em auto;'>
